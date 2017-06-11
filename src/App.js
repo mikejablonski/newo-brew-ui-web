@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Grid, Navbar, Nav, NavItem, Jumbotron, Button } from 'react-bootstrap';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Navbar inverse fixedTop>
+          <Grid>
+            <Navbar.Header>
+              <Navbar.Brand>
+                <a href="/">Newo Brew</a>
+              </Navbar.Brand>
+              <Navbar.Toggle />
+            </Navbar.Header>
+            <Navbar.Collapse>
+              <Nav>
+                <NavItem eventKey={1} href="#">Brew</NavItem>
+                <NavItem eventKey={2} href="#">History</NavItem>
+              </Nav>
+            </Navbar.Collapse>
+          </Grid>
+        </Navbar>
+        <Jumbotron>
+          <Grid>
+            <h1>Hello</h1>
+            <p>
+              <Button
+                bsStyle="success"
+                bsSize="large"
+                href="http://react-bootstrap.github.io/components.html"
+                target="_blank">
+                View React Bootstrap Docs
+              </Button>
+            </p>
+          </Grid>
+        </Jumbotron>
       </div>
     );
   }
