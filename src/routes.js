@@ -16,8 +16,8 @@ const History = () => (
 )
 
 export default (
-  <Route path="/" component={App}>
+  <Router path="/" component={App}>
     <Route path="brew" component={Brew}/>
     <Route path="history" component={History}/>
-  </Route>
+  </Router>
 );

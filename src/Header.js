@@ -9,7 +9,7 @@ class Header extends Component {
           <Grid>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="/">Newo Brew</a>
+                <Link to="/">Newo Brew</Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
