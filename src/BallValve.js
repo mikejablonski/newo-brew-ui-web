@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 import 'whatwg-fetch'
 
 class BallValve extends Component {
@@ -8,11 +8,16 @@ class BallValve extends Component {
         super(props);
         this.state = {
             valveStatus: -1,
-            description: "Unknown"
+            description: "Unknown",
+            buttonAction: "Unknown"
         };
 
         // This binding is necessary to make `this` work in the callback
         this.handleClick = this.handleClick.bind(this);
+
+        this.panelTitle = (
+            <h3>Valve {this.props.valve}</h3>
+        );
     }
 
     componentDidMount() {
@@ -38,19 +43,31 @@ class BallValve extends Component {
             switch (this.props.valve) {
                 case "1":
                     if (this.state.valveStatus === 0) {
-                        this.setState({description: "Drain BK"});
+                        this.setState({
+                            description: "Boil Kettle",
+                            buttonAction: "Drain Mash Tun"
+                        });
                     }
                     else {
-                        this.setState({description: "Drain MT"});
+                        this.setState({
+                            description: "Mash Tun",
+                            buttonAction: "Drain Boil Kettle"
+                        });
                     }
                     break;
                 case "2":
                 default:
                     if (this.state.valveStatus === 0) {
-                        this.setState({description: "Fill BK"});
+                        this.setState({
+                            description: "Boil Kettle",
+                            buttonAction: "Fill Mash Tun"
+                        });
                     }
                     else {
-                        this.setState({description: "Fill MT"});
+                        this.setState({
+                            description: "Mash Tun",
+                            buttonAction: "Fill Boil Kettle"
+                        });
                     }
                     break;
             }
@@ -80,12 +97,10 @@ class BallValve extends Component {
 
     render() {
         return (
-            <div>
-                <p>Valve Number: {this.props.valve}</p>
-                <p>Status: {this.state.valveStatus}</p>
-                <p>Description: {this.state.description}</p>
-                <p><Button bsStyle="primary" onClick={this.handleClick}>Push Me</Button></p>
-            </div>
+            <Panel header={this.props.description} bsStyle="primary">
+                <p>Position: {this.state.description}</p>
+                <p><Button bsStyle="primary" onClick={this.handleClick}>Move</Button></p>
+            </Panel>
         );
     }
 }

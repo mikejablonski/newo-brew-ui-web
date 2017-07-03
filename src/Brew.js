@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Jumbotron, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Jumbotron, Button } from 'react-bootstrap';
 import TemperatureProbe from './TemperatureProbe';
 import BallValve from './BallValve';
+import Relay from './Relay';
 
 class Brew extends Component {  
   render() {
@@ -9,12 +10,24 @@ class Brew extends Component {
         <div>
             <Jumbotron>
                 <h1>Hello</h1>
-                <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <p><Button bsStyle="primary">Learn more</Button></p>
             </Jumbotron>
-            <TemperatureProbe />
-            <BallValve valve="1" />
-            <BallValve valve="2" />
+            <Grid>
+                <Row>
+                    <Col sm={6} md={3}>
+                        <Relay title="Heater" apiUrl="heater" />
+                        <Relay title="Pump" apiUrl="pump" />
+                    </Col>
+                    <Col sm={6} md={3}>
+                        <BallValve valve="1" description="Drain Valve" />
+                    </Col>
+                    <Col sm={6} md={3}>
+                        <BallValve valve="2" description="Fill Valve" />
+                    </Col>
+                    <Col sm={6} md={3}>
+                        <TemperatureProbe />
+                    </Col>
+                </Row>
+            </Grid>
         </div>
     );
   }

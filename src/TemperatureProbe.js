@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Panel } from 'react-bootstrap';
 import 'whatwg-fetch'
 
 class TemperatureProbe extends Component {
@@ -6,6 +7,10 @@ class TemperatureProbe extends Component {
   constructor(props) {
     super(props);
     this.state = {temp: 33};
+
+    this.panelTitle = (
+      <h3>Temperature</h3>
+    );
   }
 
   componentDidMount() {
@@ -36,9 +41,9 @@ class TemperatureProbe extends Component {
 
   render() {
     return (
-        <div>
-            <p>Current Temperature: {this.state.temp}</p>
-        </div>
+      <Panel header={this.panelTitle} bsStyle="primary">
+          <p>Value: {this.state.temp}</p>
+        </Panel>
     );
   }
 }
