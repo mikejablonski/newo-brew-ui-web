@@ -16,6 +16,7 @@ class Header extends Component {
             <Navbar.Collapse>
               <Nav> 
                 <NavItem><Link to="/brew">Brew</Link></NavItem>
+                <NavItem><Link to="/session">Session</Link></NavItem>
                 <NavItem><Link to="/history">History</Link></NavItem>
               </Nav>
             </Navbar.Collapse>

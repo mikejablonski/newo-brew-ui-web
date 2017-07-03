@@ -15,9 +15,16 @@ const History = () => (
   </div>
 )
 
+const Session = () => (
+  <div>
+    <h2>Session</h2>
+  </div>
+)
+
 export default (
   <Router path="/" component={App}>
-    <Route path="brew" component={Brew}/>
-    <Route path="history" component={History}/>
+    <Route path="brew" component={Brew} />
+    <Route path="history" component={History} />
+    <Route path="session" component={Session} />
   </Router>
 );

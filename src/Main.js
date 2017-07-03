@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Brew from './Brew';
 import BrewHistory from './BrewHistory';
+import Session from './Session';
 
 class Main extends Component {  
   render() {
@@ -10,6 +11,7 @@ class Main extends Component {
             <Switch>
                 <Route exact path='/' component={Brew}/>
                 <Route path='/brew' component={Brew}/>
+                <Route path='/session' component={Session}/>
                 <Route path='/history' component={BrewHistory}/>
             </Switch>
         </div>

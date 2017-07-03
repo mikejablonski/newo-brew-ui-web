@@ -6,7 +6,7 @@ class TemperatureProbe extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {temp: 33};
+    this.state = {temp: 0};
 
     this.panelTitle = (
       <h3>Temperature</h3>

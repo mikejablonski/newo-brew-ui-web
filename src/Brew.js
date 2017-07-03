@@ -8,9 +8,6 @@ class Brew extends Component {
   render() {
     return (
         <div>
-            <Jumbotron>
-                <h1>Hello</h1>
-            </Jumbotron>
             <Grid>
                 <Row>
                     <Col sm={6} md={3}>
