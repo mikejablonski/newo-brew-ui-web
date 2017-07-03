@@ -6,7 +6,10 @@ class BallValve extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {valveStatus: -1};
+        this.state = {
+            valveStatus: -1,
+            description: "Unknown"
+        };
 
         // This binding is necessary to make `this` work in the callback
         this.handleClick = this.handleClick.bind(this);
@@ -15,7 +18,7 @@ class BallValve extends Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            2000
+            1000
         );      
     }
 
@@ -30,7 +33,27 @@ class BallValve extends Component {
         }).then((json) => {
             this.setState({
                 valveStatus: json.status
-            }); 
+            });
+
+            switch (this.props.valve) {
+                case "1":
+                    if (this.state.valveStatus === 0) {
+                        this.setState({description: "Drain BK"});
+                    }
+                    else {
+                        this.setState({description: "Drain MT"});
+                    }
+                    break;
+                case "2":
+                default:
+                    if (this.state.valveStatus === 0) {
+                        this.setState({description: "Fill BK"});
+                    }
+                    else {
+                        this.setState({description: "Fill MT"});
+                    }
+                    break;
+            }
         }).catch((ex) => {
             this.setState({
                 valveStatus: -2
@@ -39,9 +62,8 @@ class BallValve extends Component {
     }    
 
     handleClick(e) {
-        console.log('pushed button');
         var newValue = 0;
-        if (this.state.valveStatus == "0") {
+        if (this.state.valveStatus === 0) {
             newValue = 1;
         }
 
@@ -49,11 +71,11 @@ class BallValve extends Component {
         {
             method: "POST"
         })
-            .then((response) => {
-                return response.json()
-            }).then((json) => { 
-            }).catch((ex) => {
-            })
+        .then((response) => {
+            return response.json()
+        }).then((json) => { 
+        }).catch((ex) => {
+        })
     }
 
     render() {
@@ -61,6 +83,7 @@ class BallValve extends Component {
             <div>
                 <p>Valve Number: {this.props.valve}</p>
                 <p>Status: {this.state.valveStatus}</p>
+                <p>Description: {this.state.description}</p>
                 <p><Button bsStyle="primary" onClick={this.handleClick}>Push Me</Button></p>
             </div>
         );
