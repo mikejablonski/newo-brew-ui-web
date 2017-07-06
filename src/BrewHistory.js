@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 
 class BrewHistory extends Component {  
   render() {

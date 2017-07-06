@@ -47,7 +47,7 @@ class Relay extends Component {
 
   handleClick(e) {
     var newStatus = "on";
-    if (this.state.description == "on") {
+    if (this.state.description === "on") {
       newStatus = "off";
     }
     fetch(`http://raspberrypi.local:3001/${this.props.apiUrl}/${newStatus}`,
