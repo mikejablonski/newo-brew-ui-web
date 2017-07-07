@@ -97,9 +97,9 @@ class BallValve extends Component {
 
     render() {
         return (
-            <Panel header={this.props.description} bsStyle="primary">
+            <Panel header={this.props.description}>
                 <p>Position: {this.state.description}</p>
-                <p><Button bsStyle="primary" onClick={this.handleClick}>Move</Button></p>
+                <p><Button onClick={this.handleClick}>Move</Button></p>
             </Panel>
         );
     }

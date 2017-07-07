@@ -18,11 +18,15 @@ class Session extends Component {
 
     this.state = {
         mashSteps: [
-            { temp: 152, hold: 60 },
-            { temp: 170, hold: 20 },
-            { temp: 180, hold: 10 },
-            { temp: 190, hold: 5 }
-        ]
+            { temp: 152, time: 60 },
+            { temp: 170, time: 20 },
+            { temp: 180, time: 10 },
+            { temp: 190, time: 5 }
+        ],
+        boil: {
+            time: 60,
+            temp: 207
+        }
     };
   }
 
@@ -35,7 +39,7 @@ class Session extends Component {
 
   addMashStep = () => {
       this.setState({
-          mashSteps: [...this.state.mashSteps, { temp: 0, hold: 0} ]
+          mashSteps: [...this.state.mashSteps, { temp: 0, time: 0} ]
       })
   }
 
@@ -51,11 +55,21 @@ class Session extends Component {
   handleMashHoldChange = (idx) => (evt) => {
       const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
           if (idx !== sidx) return mashStep;
-          return { ...mashStep, hold: evt.target.value }
+          return { ...mashStep, time: evt.target.value }
       });
 
       this.setState({ mashSteps: newMashSteps });
-  }  
+  }
+
+  handleBoilTimeChange = (evt) => {
+      const newBoil = { ...this.state.boil, time: evt.target.value };
+      this.setState({ boil: newBoil });
+  } 
+
+  handleBoilTempChange = (evt) => {
+      const newBoil = { ...this.state.boil, temp: evt.target.value };
+      this.setState({ boil: newBoil });
+  } 
 
   render() {
     return (
@@ -83,7 +97,7 @@ class Session extends Component {
                                                 <ControlLabel>Temp</ControlLabel>
                                                 <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)}/>
                                                 <ControlLabel>Time</ControlLabel>
-                                                <FormControl type="text" placeholder="Min" value={step.hold} onChange={this.handleMashHoldChange(idx)}/>
+                                                <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)}/>
                                                 <Button onClick={this.removeMashStep(idx)}><Glyphicon glyph="remove-sign" />{' '}Remove</Button>
                                             </FormGroup>
                                         </Panel>
@@ -104,9 +118,9 @@ class Session extends Component {
                                     <FormGroup
                                         controlId="test">
                                         <ControlLabel>Temp</ControlLabel>
-                                        <FormControl type="text" placeholder="Deg" />
+                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} />
                                         <ControlLabel>Time</ControlLabel>
-                                        <FormControl type="text" placeholder="Min" />
+                                        <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} />
                                     </FormGroup>
                                 </Panel>
                             </Col>                       

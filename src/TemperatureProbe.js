@@ -41,7 +41,7 @@ class TemperatureProbe extends Component {
 
   render() {
     return (
-      <Panel header={this.panelTitle} bsStyle="primary">
+      <Panel header={this.panelTitle}>
           <p>Value: {this.state.temp}</p>
         </Panel>
     );

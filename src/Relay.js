@@ -63,9 +63,9 @@ class Relay extends Component {
 
   render() {
     return (
-        <Panel header={this.props.title} bsStyle="primary">
+        <Panel header={this.props.title}>
             <p>Status: {this.state.description}</p>
-            <Button bsStyle="primary" onClick={this.handleClick}>{this.state.buttonAction}</Button>
+            <Button onClick={this.handleClick}>{this.state.buttonAction}</Button>
         </Panel>
     );
   }
