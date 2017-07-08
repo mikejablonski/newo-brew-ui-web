@@ -72,7 +72,7 @@ class Session extends Component {
       this.setState({ name: evt.target.value });
   }
 
-    getBrewSession(sessionId) {
+    getBrewSession = (sessionId) => {
         fetch(`http://raspberrypi.local:3001/brewSession/${sessionId}`)
         .then((response) => {
             return response.json()
@@ -87,6 +87,34 @@ class Session extends Component {
                 temp: 0
             });
         })      
+    }
+
+    saveBrewSession = () => {
+
+        var postBody = {};
+        postBody.name = this.state.name;
+        postBody.mashSteps = this.state.mashSteps;
+        postBody.boil = this.state.boil;
+
+        fetch(`http://raspberrypi.local:3001/brew/save`, 
+        {
+            method: 'POST',
+            body: JSON.stringify(postBody),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (!response.ok) {
+                console.log('Error!');
+            }
+            return response.json();
+        }).then((json) => {
+            this.setState({ id: json.id });
+        }).catch((ex) => {
+            console.log('Exception!');
+        });      
     }
 
   render() {
@@ -145,7 +173,7 @@ class Session extends Component {
                     </Panel>  
                     <Row>
                         <Col xs={12}>
-                            <Button>Brew</Button>
+                            <Button onClick={this.saveBrewSession}>Save</Button>
                         </Col>
                     </Row>               
                 </Grid>
