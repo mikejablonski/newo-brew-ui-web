@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Grid, Row, Col, Button, FormGroup, ControlLabel, FormControl, HelpBlock, Glyphicon } from 'react-bootstrap';
-
-function FieldGroup({ id, label, help, ...props }) {
-    return (
-        <FormGroup controlId={id}>
-            <ControlLabel>{label}</ControlLabel>
-            <FormControl {...props} />
-            {help && <HelpBlock>{help}</HelpBlock>}
-        </FormGroup>
-    );
-}
+import { Panel, Grid, Row, Col, Button, FormGroup, ControlLabel, FormControl, Glyphicon } from 'react-bootstrap';
 
 class Session extends Component { 
 
@@ -17,6 +7,7 @@ class Session extends Component {
     super(props);
 
     this.state = {
+        name: "Mike's Test IPA",
         mashSteps: [
             { temp: 152, time: 60 },
             { temp: 170, time: 20 },
@@ -28,6 +19,12 @@ class Session extends Component {
             temp: 207
         }
     };
+  }
+
+  componentDidMount() {
+      if (this.props.match.params.sessionId) {
+          this.getBrewSession(this.props.match.params.sessionId);
+      }
   }
 
   removeMashStep = (idx) => () => {
@@ -69,7 +66,28 @@ class Session extends Component {
   handleBoilTempChange = (evt) => {
       const newBoil = { ...this.state.boil, temp: evt.target.value };
       this.setState({ boil: newBoil });
-  } 
+  }
+
+  handleNameChange = (evt) => {
+      this.setState({ name: evt.target.value });
+  }
+
+    getBrewSession(sessionId) {
+        fetch(`http://raspberrypi.local:3001/brewSession/${sessionId}`)
+        .then((response) => {
+            return response.json()
+        }).then((json) => {
+            this.setState({
+                name: json.name,
+                mashSteps: json.mashSteps,
+                boil: json.boil
+            }); 
+        }).catch((ex) => {
+            this.setState({
+                temp: 0
+            });
+        })      
+    }
 
   render() {
     return (
@@ -78,12 +96,11 @@ class Session extends Component {
                 <Grid>
                     <Row>
                         <Col xs={12}>
-                            <FieldGroup
-                                id="formControlsSessionName"
-                                type="text"
-                                label="Session Name"
-                                placeholder="Name"
-                            />
+                            <FormGroup controlId="name">
+                                <ControlLabel>Session Name</ControlLabel>
+                                <FormControl type="text" placeholder="Name" value={this.state.name}
+                                    onChange={this.handleNameChange} />
+                            </FormGroup>
                         </Col>
                     </Row>
                     <Panel>
