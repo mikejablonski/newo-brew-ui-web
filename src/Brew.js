@@ -11,7 +11,10 @@ class Brew extends Component {
             <Grid>
                 <Row>
                     <Col sm={6} md={3}>
+                        <TemperatureProbe />
                         <Relay title="Heater" apiUrl="heater" />
+                    </Col>
+                    <Col sm={6} md={3}>
                         <Relay title="Pump" apiUrl="pump" />
                     </Col>
                     <Col sm={6} md={3}>
@@ -19,9 +22,6 @@ class Brew extends Component {
                     </Col>
                     <Col sm={6} md={3}>
                         <BallValve valve="2" description="Fill Valve" />
-                    </Col>
-                    <Col sm={6} md={3}>
-                        <TemperatureProbe />
                     </Col>
                 </Row>
             </Grid>

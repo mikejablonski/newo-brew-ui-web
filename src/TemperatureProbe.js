@@ -6,7 +6,7 @@ class TemperatureProbe extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {temp: 0};
+    this.state = {temp: 0, tempC: 0};
 
     this.panelTitle = (
       <h3>Temperature</h3>
@@ -30,11 +30,13 @@ class TemperatureProbe extends Component {
         return response.json()
       }).then((json) => {
         this.setState({
-          temp: json.degreesF
+          temp: json.degreesF,
+          tempC: json.degreesC
         }); 
       }).catch((ex) => {
         this.setState({
-          temp: 0
+          temp: 0,
+          tempC: 0
         });
       })
   }
@@ -42,7 +44,8 @@ class TemperatureProbe extends Component {
   render() {
     return (
       <Panel header={this.panelTitle}>
-          <p>Value: {this.state.temp}</p>
+          <p>Fahrenheit: {this.state.temp}</p>
+          <p>Celsius: {this.state.tempC}</p>
         </Panel>
     );
   }
