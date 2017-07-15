@@ -3,6 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import TemperatureProbe from './TemperatureProbe';
 import BallValve from './BallValve';
 import Relay from './Relay';
+import BrewSessionStatusSummary from './BrewSessionStatusSummary';
 
 class Brew extends Component {  
   render() {
@@ -11,6 +12,7 @@ class Brew extends Component {
             <Grid>
                 <Row>
                     <Col sm={6} md={3}>
+                        <BrewSessionStatusSummary />
                         <TemperatureProbe />
                         <Relay title="Heater" apiUrl="heater" />
                     </Col>
