@@ -31,7 +31,6 @@ class BrewSessionStatusSummary extends Component {
       .then((response) => {
         return response.json()
       }).then((json) => {
-        console.log(json.isBrewSessionRunning);
         this.setState({
           isBrewSessionRunning: json.isBrewSessionRunning
         });
@@ -41,7 +40,7 @@ class BrewSessionStatusSummary extends Component {
           });
         }
       }).catch((ex) => {
-        console.log('ex');
+        console.log('Exception!');
         this.setState({
             isBrewSessionRunning: false
         });

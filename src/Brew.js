@@ -13,16 +13,16 @@ class Brew extends Component {
                 <Row>
                     <Col sm={6} md={3}>
                         <BrewSessionStatusSummary />
-                        <TemperatureProbe />
-                        <Relay title="Heater" apiUrl="heater" />
                     </Col>
                     <Col sm={6} md={3}>
+                        <TemperatureProbe />
+                    </Col>
+                    <Col sm={6} md={3}>
+                        <Relay title="Heater" apiUrl="heater" />
                         <Relay title="Pump" apiUrl="pump" />
                     </Col>
                     <Col sm={6} md={3}>
                         <BallValve valve="1" description="Drain Valve" />
-                    </Col>
-                    <Col sm={6} md={3}>
                         <BallValve valve="2" description="Fill Valve" />
                     </Col>
                 </Row>
