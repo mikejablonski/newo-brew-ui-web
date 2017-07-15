@@ -17,12 +17,14 @@ class Session extends Component {
         boil: {
             time: 60,
             temp: 207
-        }
+        },
+        id: 0
     };
   }
 
   componentDidMount() {
       if (this.props.match.params.sessionId) {
+          this.setState({id: this.props.match.params.sessionId});
           this.getBrewSession(this.props.match.params.sessionId);
       }
   }
@@ -111,10 +113,39 @@ class Session extends Component {
             }
             return response.json();
         }).then((json) => {
+            console.log(json);
+            console.log('setting state id to ', json.id);
             this.setState({ id: json.id });
         }).catch((ex) => {
             console.log('Exception!');
         });      
+    }
+
+    startBrewing = () => {
+        var postBody = {};
+        postBody.sessionId = this.state.id;
+
+        fetch(`http://raspberrypi.local:3001/brew/start`, 
+        {
+            method: 'POST',
+            body: JSON.stringify(postBody),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (!response.ok) {
+                console.log('Error!');
+            }
+            return response.json();
+        }).then((json) => {
+            // redirect to the brew page
+            this.props.history.push('/brew');
+        }).catch((ex) => {
+            console.log('Exception!');
+        });      
+
     }
 
   render() {
@@ -173,6 +204,9 @@ class Session extends Component {
                     </Panel>  
                     <Row>
                         <Col xs={12}>
+                            {this.state.id > 0 &&
+                            <Button onClick={this.startBrewing}>Start Brewing</Button>
+                            }
                             <Button onClick={this.saveBrewSession}>Save</Button>
                         </Col>
                     </Row>               
