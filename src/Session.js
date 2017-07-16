@@ -145,6 +145,7 @@ class Session extends Component {
     }
 
   render() {
+    let keyboardAttribute = {'pattern': '\\d*'};
     return (
         <div>
             <form>
@@ -167,9 +168,9 @@ class Session extends Component {
                                             <FormGroup
                                                 controlId={`MashStep${idx}`}>
                                                 <ControlLabel>Temp</ControlLabel>
-                                                <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)}/>
+                                                <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} {...keyboardAttribute} />
                                                 <ControlLabel>Time</ControlLabel>
-                                                <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)}/>
+                                                <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)} {...keyboardAttribute} />
                                                 <Button onClick={this.removeMashStep(idx)}><Glyphicon glyph="remove-sign" />{' '}Remove</Button>
                                             </FormGroup>
                                         </Panel>
@@ -190,9 +191,9 @@ class Session extends Component {
                                     <FormGroup
                                         controlId="test">
                                         <ControlLabel>Temp</ControlLabel>
-                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} />
+                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} {...keyboardAttribute} />
                                         <ControlLabel>Time</ControlLabel>
-                                        <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} />
+                                        <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} {...keyboardAttribute} />
                                     </FormGroup>
                                 </Panel>
                             </Col>                       
