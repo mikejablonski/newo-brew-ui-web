@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { Panel } from 'react-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
@@ -58,7 +59,10 @@ class BrewSessionStatusSummary extends Component {
                 </div>
             }
             {!this.state.isBrewSessionRunning && 
-              <p>Off</p>
+              <div>
+                <p>System Off</p>
+                <Link to="/session">New Brew Session</Link>
+              </div>
             }
         </Panel>
     );

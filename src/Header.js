@@ -19,9 +19,6 @@ class Header extends Component {
                 <LinkContainer to="/brew">
                   <NavItem eventKey={1}>Brew</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/session">
-                  <NavItem eventKey={2}>Session</NavItem>
-                </LinkContainer>
                 <LinkContainer to="/history">
                   <NavItem eventKey={3}>History</NavItem>
                 </LinkContainer>

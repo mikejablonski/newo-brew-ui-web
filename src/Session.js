@@ -10,9 +10,7 @@ class Session extends Component {
             name: "Ballard Summer Pale",
             mashSteps: [
                 { temp: 152, time: 40 },
-                { temp: 170, time: 20 },
-                // { temp: 180, time: 10 },
-                // { temp: 190, time: 5 }
+                { temp: 170, time: 20 }
             ],
             boil: {
                 time: 60,
@@ -30,7 +28,6 @@ class Session extends Component {
     }
 
     removeMashStep = (idx) => () => {
-        console.log(idx);
         this.setState({
             mashSteps: this.state.mashSteps.filter((s, sidx) => idx !== sidx)
         });
@@ -113,10 +110,7 @@ class Session extends Component {
             }
             return response.json();
         }).then((json) => {
-            console.log(json);
-            console.log('setting state id to ', json.id);
             this.setState({ id: json.id });
-
             this.startBrewing();
         }).catch((ex) => {
             console.log('Exception!');
@@ -169,7 +163,7 @@ class Session extends Component {
                             {
                                 this.state.mashSteps.map((step, idx) =>
                                     <Col xs={6} sm={6} md={3} key={idx}>
-                                        <Panel header={`Mash Step ${idx}`}>
+                                        <Panel header={`Mash Step ${idx+1}`}>
                                             <FormGroup
                                                 controlId={`MashStep${idx}`}>
                                                 <ControlLabel>Temp</ControlLabel>

@@ -11,6 +11,5 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 // components takes precedence over default styles.
 import './index.css';
 
-//ReactDOM.render(<App />, document.getElementById('root'));
 ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();
