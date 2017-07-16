@@ -3,76 +3,76 @@ import { Panel, Grid, Row, Col, Button, FormGroup, ControlLabel, FormControl, Gl
 
 class Session extends Component { 
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-        name: "Mike's Test IPA",
-        mashSteps: [
-            { temp: 152, time: 60 },
-            { temp: 170, time: 20 },
-            { temp: 180, time: 10 },
-            { temp: 190, time: 5 }
-        ],
-        boil: {
-            time: 60,
-            temp: 207
-        },
-        id: 0
-    };
-  }
+        this.state = {
+            name: "Ballard Summer Pale",
+            mashSteps: [
+                { temp: 152, time: 40 },
+                { temp: 170, time: 20 },
+                // { temp: 180, time: 10 },
+                // { temp: 190, time: 5 }
+            ],
+            boil: {
+                time: 60,
+                temp: 207
+            },
+            id: 0
+        };
+    }
 
-  componentDidMount() {
-      if (this.props.match.params.sessionId) {
-          this.setState({id: this.props.match.params.sessionId});
-          this.getBrewSession(this.props.match.params.sessionId);
-      }
-  }
+    componentDidMount() {
+        if (this.props.match.params.sessionId) {
+            this.setState({id: this.props.match.params.sessionId});
+            this.getBrewSession(this.props.match.params.sessionId);
+        }
+    }
 
-  removeMashStep = (idx) => () => {
-    console.log(idx);
-    this.setState({
-        mashSteps: this.state.mashSteps.filter((s, sidx) => idx !== sidx)
-    });
-  }
+    removeMashStep = (idx) => () => {
+        console.log(idx);
+        this.setState({
+            mashSteps: this.state.mashSteps.filter((s, sidx) => idx !== sidx)
+        });
+    }
 
-  addMashStep = () => {
-      this.setState({
-          mashSteps: [...this.state.mashSteps, { temp: 0, time: 0} ]
-      })
-  }
+    addMashStep = () => {
+        this.setState({
+            mashSteps: [...this.state.mashSteps, { temp: 0, time: 0} ]
+        })
+    }
 
-  handleMashTempChange = (idx) => (evt) => {
-      const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
-          if (idx !== sidx) return mashStep;
-          return { ...mashStep, temp: evt.target.value }
-      });
+    handleMashTempChange = (idx) => (evt) => {
+        const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
+            if (idx !== sidx) return mashStep;
+            return { ...mashStep, temp: evt.target.value }
+        });
 
-      this.setState({ mashSteps: newMashSteps });
-  }
+        this.setState({ mashSteps: newMashSteps });
+    }
 
-  handleMashHoldChange = (idx) => (evt) => {
-      const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
-          if (idx !== sidx) return mashStep;
-          return { ...mashStep, time: evt.target.value }
-      });
+    handleMashHoldChange = (idx) => (evt) => {
+        const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
+            if (idx !== sidx) return mashStep;
+            return { ...mashStep, time: evt.target.value }
+        });
 
-      this.setState({ mashSteps: newMashSteps });
-  }
+        this.setState({ mashSteps: newMashSteps });
+    }
 
-  handleBoilTimeChange = (evt) => {
-      const newBoil = { ...this.state.boil, time: evt.target.value };
-      this.setState({ boil: newBoil });
-  } 
+    handleBoilTimeChange = (evt) => {
+        const newBoil = { ...this.state.boil, time: evt.target.value };
+        this.setState({ boil: newBoil });
+    } 
 
-  handleBoilTempChange = (evt) => {
-      const newBoil = { ...this.state.boil, temp: evt.target.value };
-      this.setState({ boil: newBoil });
-  }
+    handleBoilTempChange = (evt) => {
+        const newBoil = { ...this.state.boil, temp: evt.target.value };
+        this.setState({ boil: newBoil });
+    }
 
-  handleNameChange = (evt) => {
-      this.setState({ name: evt.target.value });
-  }
+    handleNameChange = (evt) => {
+        this.setState({ name: evt.target.value });
+    }
 
     getBrewSession = (sessionId) => {
         fetch(`http://raspberrypi.local:3001/brewSession/${sessionId}`)
@@ -116,6 +116,8 @@ class Session extends Component {
             console.log(json);
             console.log('setting state id to ', json.id);
             this.setState({ id: json.id });
+
+            this.startBrewing();
         }).catch((ex) => {
             console.log('Exception!');
         });      
@@ -204,10 +206,7 @@ class Session extends Component {
                     </Panel>  
                     <Row>
                         <Col xs={12}>
-                            {this.state.id > 0 &&
-                            <Button onClick={this.startBrewing}>Start Brewing</Button>
-                            }
-                            <Button onClick={this.saveBrewSession}>Save</Button>
+                            <Button onClick={this.saveBrewSession}>Brew</Button>
                         </Col>
                     </Row>               
                 </Grid>
