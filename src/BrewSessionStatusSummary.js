@@ -56,6 +56,7 @@ class BrewSessionStatusSummary extends Component {
                     <p>{this.state.brewSession.name}</p>
                       <BrewSessionStatus status={this.state.brewSession.status} /> 
                       <BrewSessionStep brewSession={this.state.brewSession} />
+                      <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
                 </div>
             }
             {!this.state.isBrewSessionRunning && 
