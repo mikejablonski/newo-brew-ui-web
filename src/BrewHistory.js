@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Glyphicon, Button } from 'react-bootstrap';
+import { Table, Glyphicon, Button, ButtonToolbar } from 'react-bootstrap';
 var dateFormat = require('dateformat');
 
 class BrewHistory extends Component {
@@ -50,7 +50,14 @@ class BrewHistory extends Component {
             <td>{item.name}</td>
             <td>{dateFormat(item.created, "mm-dd-yyyy hh:MM:ss TT")}</td>
             <td>{this.mapBrewSessionStatus(item.status)}</td>
-            <td><Button onClick={this.rerunBrewSession(item.$loki)}><Glyphicon glyph="repeat" /></Button></td>
+            <td>
+                    <ButtonToolbar>
+                        <Button bsStyle="primary" onClick={this.rerunBrewSession(item.$loki)} ><Glyphicon glyph="grain" /></Button>
+                        {item.status === 1 && 
+                        <Button bsStyle="success"><Glyphicon glyph="repeat" /></Button>
+                        }
+                    </ButtonToolbar>
+            </td>
         </tr>
         );      
     return (

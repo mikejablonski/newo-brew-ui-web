@@ -99,7 +99,7 @@ class BallValve extends Component {
         return (
             <Panel header={this.props.description}>
                 <p>Position: {this.state.description}</p>
-                <p><Button onClick={this.handleClick}>Move</Button></p>
+                <p><Button bsStyle="primary" onClick={this.handleClick} block>Move</Button></p>
             </Panel>
         );
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Glyphicon } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
 import 'whatwg-fetch'
@@ -75,7 +75,9 @@ class BrewSessionStatusSummary extends Component {
             {!this.state.isBrewSessionRunning && 
               <div>
                 <p>System Off</p>
-                <Link to="/session">New Brew Session</Link>
+                <LinkContainer to="/session">
+                  <Button bsStyle="primary" block><Glyphicon glyph="grain" /> New Brew Session</Button>
+                </LinkContainer>
               </div>
             }
         </Panel>
