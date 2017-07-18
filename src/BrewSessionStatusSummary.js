@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { Panel } from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
 import 'whatwg-fetch'
@@ -48,6 +48,18 @@ class BrewSessionStatusSummary extends Component {
       })
   }
 
+  stop = () => {
+    fetch('http://raspberrypi.local:3001/brew/stop', {
+      method: 'POST'
+    })
+      .then((response) => {
+        return response.json()
+      }).then((json) => {
+      }).catch((ex) => {
+        console.log('Exception on stop!');
+      })
+  }
+
   render() {
     return (
         <Panel header={this.panelTitle}>
@@ -57,6 +69,7 @@ class BrewSessionStatusSummary extends Component {
                       <BrewSessionStatus status={this.state.brewSession.status} /> 
                       <BrewSessionStep brewSession={this.state.brewSession} />
                       <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
+                      <Button onClick={this.stop} >Stop</Button>
                 </div>
             }
             {!this.state.isBrewSessionRunning && 
