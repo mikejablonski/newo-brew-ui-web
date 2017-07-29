@@ -63,7 +63,7 @@ class Relay extends Component {
 
   render() {
     var style = "success";
-    if (this.state.buttonAction == "off") {
+    if (this.state.buttonAction === "off") {
       style = "danger";
     }
     return (

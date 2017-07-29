@@ -65,11 +65,11 @@ class BrewSessionStatusSummary extends Component {
         <Panel header={this.panelTitle}>
             {this.state.isBrewSessionRunning && this.state.brewSession && 
                 <div>
-                    <p>{this.state.brewSession.name}</p>
+                    <p>{this.state.brewSession.name} ({this.state.brewSession.$loki})</p>
                       <BrewSessionStatus status={this.state.brewSession.status} /> 
                       <BrewSessionStep brewSession={this.state.brewSession} />
                       <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
-                      <Button onClick={this.stop} >Stop</Button>
+                      <Button onClick={this.stop} bsStyle="danger">Stop</Button>
                 </div>
             }
             {!this.state.isBrewSessionRunning && 

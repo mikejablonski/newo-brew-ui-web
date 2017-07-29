@@ -8,7 +8,7 @@ class BallValve extends Component {
         super(props);
         this.state = {
             valveStatus: -1,
-            description: "Unknown",
+            position: "Unknown",
             buttonAction: "Unknown"
         };
 
@@ -44,14 +44,14 @@ class BallValve extends Component {
                 case "1":
                     if (this.state.valveStatus === 0) {
                         this.setState({
-                            description: "Boil Kettle",
-                            buttonAction: "Drain Mash Tun"
+                            position: "Mash Tun",
+                            buttonAction: "Drain Boil Kettle"
                         });
                     }
                     else {
                         this.setState({
-                            description: "Mash Tun",
-                            buttonAction: "Drain Boil Kettle"
+                            position: "Boil Kettle",
+                            buttonAction: "Drain Mash Tun"                            
                         });
                     }
                     break;
@@ -59,14 +59,14 @@ class BallValve extends Component {
                 default:
                     if (this.state.valveStatus === 0) {
                         this.setState({
-                            description: "Boil Kettle",
-                            buttonAction: "Fill Mash Tun"
+                            position: "Mash Tun",
+                            buttonAction: "Fill Boil Kettle"
                         });
                     }
                     else {
                         this.setState({
-                            description: "Mash Tun",
-                            buttonAction: "Fill Boil Kettle"
+                            position: "Boil Kettle",
+                            buttonAction: "Fill Mash Tun"
                         });
                     }
                     break;
@@ -98,7 +98,7 @@ class BallValve extends Component {
     render() {
         return (
             <Panel header={this.props.description}>
-                <p>Position: {this.state.description}</p>
+                <p>Position: {this.state.position}</p>
                 <p><Button bsStyle="primary" onClick={this.handleClick} block>Move</Button></p>
             </Panel>
         );
