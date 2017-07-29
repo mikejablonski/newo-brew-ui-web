@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import ScrollToTop from './ScrollToTop'
 
 import { BrowserRouter } from 'react-router-dom';
 
@@ -11,5 +12,5 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 // components takes precedence over default styles.
 import './index.css';
 
-ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
+ReactDOM.render(<BrowserRouter><ScrollToTop><App /></ScrollToTop></BrowserRouter>, document.getElementById('root'));
 registerServiceWorker();

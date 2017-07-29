@@ -145,7 +145,8 @@ class Session extends Component {
     }
 
   render() {
-    let keyboardAttribute = {'pattern': '\\d*', 'fontSize': '16px'};
+    let keyboardAttribute = {'pattern': '\\d*'};
+    let inputStyle = { fontSize: '16px' };
     return (
         <div>
             <form>
@@ -154,7 +155,7 @@ class Session extends Component {
                         <Col xs={12}>
                             <FormGroup controlId="name">
                                 <ControlLabel>Session Name</ControlLabel>
-                                <FormControl type="text" placeholder="Name" value={this.state.name}
+                                <FormControl type="text" placeholder="Name" value={this.state.name} style={inputStyle}
                                     onChange={this.handleNameChange} />
                             </FormGroup>
                         </Col>
@@ -168,10 +169,10 @@ class Session extends Component {
                                             <FormGroup
                                                 controlId={`MashStep${idx}`}>
                                                 <ControlLabel>Temp</ControlLabel>
-                                                <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} {...keyboardAttribute} />
+                                                <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} style={inputStyle} {...keyboardAttribute} />
                                                 <br/>
                                                 <ControlLabel>Time</ControlLabel>
-                                                <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)} {...keyboardAttribute} />
+                                                <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)} style={inputStyle} {...keyboardAttribute} />
                                                 <br/>
                                                 <Button onClick={this.removeMashStep(idx)} bsStyle="danger"><Glyphicon glyph="remove-sign" />{' '}Remove</Button>
                                             </FormGroup>
@@ -193,10 +194,10 @@ class Session extends Component {
                                     <FormGroup
                                         controlId="test">
                                         <ControlLabel>Temp</ControlLabel>
-                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} {...keyboardAttribute} />
+                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} style={inputStyle} {...keyboardAttribute} />
                                         <br/>
                                         <ControlLabel>Time</ControlLabel>
-                                        <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} {...keyboardAttribute} />
+                                        <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} style={inputStyle} {...keyboardAttribute} />
                                     </FormGroup>
                                 </Panel>
                             </Col>                       
