@@ -191,22 +191,23 @@ class Session extends Component {
                         <Row>
                             {
                                 this.state.mashSteps.map((step, idx) =>
-                                    <Col xs={6} sm={6} md={3} key={idx}>
+                                    <Col xs={12} sm={6} md={3} key={idx}>
                                         <Panel header={`Mash Step ${idx+1}`}>
                                             <FormGroup
                                                 controlId={`MashStep${idx}`}>
                                                 <Row>
-                                                    <Col xs={6} md={6}>
+                                                    <Col xs={6} sm={6} md={6}>
                                                         <ControlLabel>Temp F</ControlLabel>
                                                         <FormControl type="text" placeholder="DegF" value={step.tempF} onChange={this.handleMashTempFChange(idx)} style={inputStyle} {...keyboardAttribute} />
+                                                        <br/>
                                                     </Col>                                                    
-                                                    <Col xs={6} md={6}>
+                                                    <Col xs={6} sm={6} md={6}>
                                                         <ControlLabel>Temp C</ControlLabel>
                                                         <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} style={inputStyle} {...keyboardAttribute} />
+                                                        <br/>
                                                     </Col>
                                                 </Row>
                                                 
-                                                <br/>
                                                 <ControlLabel>Time</ControlLabel>
                                                 <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)} style={inputStyle} {...keyboardAttribute} />
                                                 <br/>
@@ -225,7 +226,7 @@ class Session extends Component {
                     </Panel>
                     <Panel>
                         <Row>
-                            <Col xs={6} sm={6} md={3}>
+                            <Col xs={12} sm={6} md={3}>
                                 <Panel header="Boil">
                                     <FormGroup
                                         controlId="test">
