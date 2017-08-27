@@ -9,16 +9,29 @@ class Session extends Component {
         this.state = {
             name: "Ballard Summer Pale",
             mashSteps: [
-                { temp: 152, time: 40 },
-                { temp: 170, time: 20 }
+                { temp: 66.67, tempF: 152, time: 40 },
+                { temp: 76.67, tempF: 170, time: 20 }
             ],
             boil: {
                 time: 60,
-                temp: 207
+                temp: 97.22,
+                tempF: 207
             },
             id: 0
         };
     }
+
+    cToF(celsius) {
+        var cTemp = celsius;
+        var cToFahr = cTemp * 9 / 5 + 32;
+        return Number(cToFahr).toFixed(2);
+    }
+
+    fToC(fahrenheit) {
+        var fTemp = fahrenheit;
+        var fToCel = (fTemp - 32) * 5 / 9;
+        return Number(fToCel).toFixed(2);
+    }    
 
     componentDidMount() {
         if (this.props.match.params.sessionId) {
@@ -35,18 +48,27 @@ class Session extends Component {
 
     addMashStep = () => {
         this.setState({
-            mashSteps: [...this.state.mashSteps, { temp: 0, time: 0} ]
+            mashSteps: [...this.state.mashSteps, { temp: 0, tempF: 0, time: 0} ]
         })
     }
 
     handleMashTempChange = (idx) => (evt) => {
         const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
             if (idx !== sidx) return mashStep;
-            return { ...mashStep, temp: evt.target.value }
+            return { ...mashStep, temp: evt.target.value, tempF: this.cToF(evt.target.value) }
         });
 
         this.setState({ mashSteps: newMashSteps });
     }
+
+    handleMashTempFChange = (idx) => (evt) => {
+        const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
+            if (idx !== sidx) return mashStep;
+            return { ...mashStep, temp: this.fToC(evt.target.value),  tempF:evt.target.value  }
+        });
+
+        this.setState({ mashSteps: newMashSteps });
+    }    
 
     handleMashHoldChange = (idx) => (evt) => {
         const newMashSteps = this.state.mashSteps.map((mashStep, sidx) => {
@@ -63,9 +85,14 @@ class Session extends Component {
     } 
 
     handleBoilTempChange = (evt) => {
-        const newBoil = { ...this.state.boil, temp: evt.target.value };
+        const newBoil = { ...this.state.boil, temp: evt.target.value, tempF: this.cToF(evt.target.value) };
         this.setState({ boil: newBoil });
     }
+
+    handleBoilTempFChange = (evt) => {
+        const newBoil = { ...this.state.boil, temp: this.fToC(evt.target.value), tempF: evt.target.value };
+        this.setState({ boil: newBoil });
+    }    
 
     handleNameChange = (evt) => {
         this.setState({ name: evt.target.value });
@@ -168,8 +195,17 @@ class Session extends Component {
                                         <Panel header={`Mash Step ${idx+1}`}>
                                             <FormGroup
                                                 controlId={`MashStep${idx}`}>
-                                                <ControlLabel>Temp</ControlLabel>
-                                                <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} style={inputStyle} {...keyboardAttribute} />
+                                                <Row>
+                                                    <Col xs={6} md={6}>
+                                                        <ControlLabel>Temp F</ControlLabel>
+                                                        <FormControl type="text" placeholder="DegF" value={step.tempF} onChange={this.handleMashTempFChange(idx)} style={inputStyle} {...keyboardAttribute} />
+                                                    </Col>                                                    
+                                                    <Col xs={6} md={6}>
+                                                        <ControlLabel>Temp C</ControlLabel>
+                                                        <FormControl type="text" placeholder="Deg" value={step.temp} onChange={this.handleMashTempChange(idx)} style={inputStyle} {...keyboardAttribute} />
+                                                    </Col>
+                                                </Row>
+                                                
                                                 <br/>
                                                 <ControlLabel>Time</ControlLabel>
                                                 <FormControl type="text" placeholder="Min" value={step.time} onChange={this.handleMashHoldChange(idx)} style={inputStyle} {...keyboardAttribute} />
@@ -193,8 +229,17 @@ class Session extends Component {
                                 <Panel header="Boil">
                                     <FormGroup
                                         controlId="test">
-                                        <ControlLabel>Temp</ControlLabel>
-                                        <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} style={inputStyle} {...keyboardAttribute} />
+                                        <Row>
+                                            <Col xs={6} md={6}>
+                                                <ControlLabel>Temp F</ControlLabel>
+                                                <FormControl type="text" placeholder="Deg" value={this.state.boil.tempF} onChange={this.handleBoilTempFChange} style={inputStyle} {...keyboardAttribute} />
+                                            </Col>
+                                            <Col xs={6} md={6}>
+                                                <ControlLabel>Temp C</ControlLabel>
+                                                <FormControl type="text" placeholder="Deg" value={this.state.boil.temp} onChange={this.handleBoilTempChange} style={inputStyle} {...keyboardAttribute} />
+                                            </Col>
+                                        </Row>
+                                        
                                         <br/>
                                         <ControlLabel>Time</ControlLabel>
                                         <FormControl type="text" placeholder="Min" value={this.state.boil.time} onChange={this.handleBoilTimeChange} style={inputStyle} {...keyboardAttribute} />
