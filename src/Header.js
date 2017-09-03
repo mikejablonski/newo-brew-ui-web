@@ -20,8 +20,11 @@ class Header extends Component {
                   <NavItem eventKey={1}>Brew</NavItem>
                 </LinkContainer>
                 <LinkContainer to="/history">
-                  <NavItem eventKey={3}>History</NavItem>
+                  <NavItem eventKey={2}>History</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/tools">
+                  <NavItem eventKey={3}>Tools</NavItem>
+                </LinkContainer>                
               </Nav>
             </Navbar.Collapse>
           </Grid>
