@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Grid, Row, Col, Button, FormGroup, ControlLabel, FormControl, Glyphicon } from 'react-bootstrap';
+import { Panel, ControlLabel, FormControl } from 'react-bootstrap';
 
 class WeightVolume extends Component {
 
@@ -67,20 +67,20 @@ class WeightVolume extends Component {
     }
 
   render() {
-    let keyboardAttribute = {'pattern': '\\d*'};
+    let keyboardAttribute = {'pattern': ''};
     let inputStyle = { fontSize: '16px' };
     return (
       <Panel header={this.panelTitle}>
-        <ControlLabel>Container Weight</ControlLabel>
+        <ControlLabel>Container Weight (lb)</ControlLabel>
         <FormControl type="text" placeholder="lb" value={this.state.containerWeight} onChange={this.handleContainerWeight} style={inputStyle} {...keyboardAttribute} />
         <br/>
-        <ControlLabel>Empty Container Weight</ControlLabel>
+        <ControlLabel>Empty Container Weight (lb)</ControlLabel>
         <FormControl type="text" placeholder="lb" value={this.state.emptyContainerWeight} onChange={this.handleEmptyContainerWeight} style={inputStyle} {...keyboardAttribute} />
         <br/>
         <ControlLabel>Specific Gravity</ControlLabel>
         <FormControl type="text" placeholder="SG" value={this.state.sg} onChange={this.handleSG} style={inputStyle} {...keyboardAttribute} />
         <br/>
-        <ControlLabel>Volume</ControlLabel>
+        <ControlLabel>Volume (gal)</ControlLabel>
         <FormControl type="text" placeholder="gallons" value={this.state.volume} onChange={this.handleVolume} style={inputStyle} {...keyboardAttribute} />
         <br/>                
         </Panel>
