@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
 import 'whatwg-fetch'
+var timediff = require('timediff');
 
 class BrewSessionStatusSummary extends Component {
 
@@ -60,16 +61,38 @@ class BrewSessionStatusSummary extends Component {
       })
   }
 
+  getTotalTimeElapsed = () => {
+    if (!this.state.brewSession.lastStarted) {
+      return "N/A";
+    }
+    
+    var dateStarted = new Date(this.state.brewSession.lastStarted);
+    var dateNow = new Date(Date.now());
+
+    var theDiff = timediff(dateStarted, dateNow, 'YDHmS');
+    if (theDiff.hours > 0) {
+      return theDiff.hours + ' hours, ' + theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
+    }
+    else if (theDiff.minutes > 0) {
+      return theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
+    }
+    else {
+      return theDiff.seconds + ' seconds';
+    }
+  }
+
   render() {
     return (
         <Panel header={this.panelTitle}>
             {this.state.isBrewSessionRunning && this.state.brewSession && 
                 <div>
                     <p>{this.state.brewSession.name} ({this.state.brewSession.$loki})</p>
-                      <BrewSessionStatus status={this.state.brewSession.status} /> 
-                      <BrewSessionStep brewSession={this.state.brewSession} />
-                      <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
-                      <Button onClick={this.stop} bsStyle="danger">Stop</Button>
+                    <BrewSessionStatus status={this.state.brewSession.status} />
+                    <p>Time Started: {new Date(this.state.brewSession.lastStarted).toLocaleTimeString()}</p>
+                    <p>Time Elapsed: {this.getTotalTimeElapsed()}</p>
+                    <BrewSessionStep brewSession={this.state.brewSession} />
+                    <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
+                    <Button onClick={this.stop} bsStyle="danger">Stop</Button>
                 </div>
             }
             {!this.state.isBrewSessionRunning && 
