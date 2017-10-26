@@ -120,7 +120,20 @@ class Session extends Component {
         var postBody = {};
         postBody.name = this.state.name;
         postBody.mashSteps = this.state.mashSteps;
+        // delete any mash start and stop time data
+        for (var i=0; i < postBody.mashSteps.length; i++) {
+            var mashStep = postBody.mashSteps[i];
+            delete mashStep.mashEndTime;
+            delete mashStep.mashStartTime;
+            delete mashStep.formattedMashEndTime;
+            delete mashStep.formattedMashStartTime;
+        }
         postBody.boil = this.state.boil;
+        // delete any boil start and stop data
+        delete postBody.boil.boilEndTime;
+        delete postBody.boil.boilStartTime;
+        delete postBody.boil.formattedBoilEndTime;
+        delete postBody.boil.formattedBoilStartTime;
 
         fetch(`http://raspberrypi.local:3001/brew/save`, 
         {
