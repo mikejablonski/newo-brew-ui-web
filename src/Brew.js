@@ -4,6 +4,7 @@ import TemperatureProbe from './TemperatureProbe';
 import BallValve from './BallValve';
 import Relay from './Relay';
 import BrewSessionStatusSummary from './BrewSessionStatusSummary';
+import SessionTempChart from './SessionTempChart';
 
 class Brew extends Component {  
   render() {
@@ -24,6 +25,11 @@ class Brew extends Component {
                     <Col sm={6} md={3}>
                         <BallValve valve="1" description="Drain Valve" />
                         <BallValve valve="2" description="Fill Valve" />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <SessionTempChart />
                     </Col>
                 </Row>
             </Grid>
