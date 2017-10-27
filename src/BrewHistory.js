@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Glyphicon, Button, ButtonToolbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 var dateFormat = require('dateformat');
 
 class BrewHistory extends Component {
@@ -73,7 +74,7 @@ class BrewHistory extends Component {
         .map((item) =>
         <tr key={item.created}>
             <td>{item.$loki}</td>
-            <td>{item.name}</td>
+            <td><Link to={'/history/' + item.$loki}>{item.name}</Link></td>
             <td>{dateFormat(item.created, "mm-dd-yyyy hh:MM:ss TT")}</td>
             <td>
                 {this.mapBrewSessionStatus(item.status)}
