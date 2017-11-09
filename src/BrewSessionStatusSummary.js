@@ -72,6 +72,7 @@ class BrewSessionStatusSummary extends Component {
     var theDiff = timediff(dateStarted, dateNow, 'YDHmS');
     if (theDiff.hours > 0) {
       return theDiff.hours + ' hours, ' + theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
+      //return theDiff.hours.padStart(2, '0');
     }
     else if (theDiff.minutes > 0) {
       return theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';

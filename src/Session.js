@@ -115,7 +115,7 @@ class Session extends Component {
         })      
     }
 
-    saveBrewSession = () => {
+    saveBrewSession = (simulate) => () => {
 
         var postBody = {};
         postBody.name = this.state.name;
@@ -135,7 +135,9 @@ class Session extends Component {
         delete postBody.boil.formattedBoilEndTime;
         delete postBody.boil.formattedBoilStartTime;
 
-        fetch(`http://raspberrypi.local:3001/brew/save`, 
+        var url = 'http://raspberrypi.local:3001/brew/save';
+
+        fetch(url, 
         {
             method: 'POST',
             body: JSON.stringify(postBody),
@@ -151,17 +153,21 @@ class Session extends Component {
             return response.json();
         }).then((json) => {
             this.setState({ id: json.id });
-            this.startBrewing();
+            this.startBrewing(simulate);
         }).catch((ex) => {
             console.log('Exception!');
         });      
     }
 
-    startBrewing = () => {
+    startBrewing = (simulate) => {
         var postBody = {};
         postBody.sessionId = this.state.id;
 
-        fetch(`http://raspberrypi.local:3001/brew/start`, 
+        var url = 'http://raspberrypi.local:3001/brew/start';
+        if (simulate) {
+            url = 'http://raspberrypi.local:3001/brew/simulate';
+        }
+        fetch(url, 
         {
             method: 'POST',
             body: JSON.stringify(postBody),
@@ -264,9 +270,15 @@ class Session extends Component {
                     </Panel>  
                     <Row>
                         <Col xs={12}>
-                            <Button onClick={this.saveBrewSession} bsSize="large" bsStyle="primary"><Glyphicon glyph="fire" />{' '}Brew</Button>
+                            <Button onClick={this.saveBrewSession(false)} bsSize="large" bsStyle="primary"><Glyphicon glyph="fire" />{' '}Brew</Button>
                         </Col>
-                    </Row>               
+                    </Row>
+                    <Row>
+                        <Col xs={12}>
+                            <br/>
+                            <Button onClick={this.saveBrewSession(true)} bsSize="large" bsStyle="primary"><Glyphicon glyph="fire" />{' '}Simulate</Button>
+                        </Col>
+                    </Row>                    
                 </Grid>
             <br/>
             <br/>
