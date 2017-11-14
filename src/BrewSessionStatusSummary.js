@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
 import MashStepStatus from './MashStepStatus';
+import {toHHMMSS} from './lib/DateTimeFormatting';
 import 'whatwg-fetch'
 var timediff = require('timediff');
 
@@ -70,17 +71,20 @@ class BrewSessionStatusSummary extends Component {
     var dateStarted = new Date(this.state.brewSession.lastStarted);
     var dateNow = new Date(Date.now());
 
-    var theDiff = timediff(dateStarted, dateNow, 'YDHmS');
-    if (theDiff.hours > 0) {
-      return theDiff.hours + ' hours, ' + theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
-    }
-    else if (theDiff.minutes > 0) {
-      return theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
-    }
-    else {
-      return theDiff.seconds + ' seconds';
-    }
+    var theDiff = timediff(dateStarted, dateNow, 'S');
+    return toHHMMSS(theDiff.seconds.toString());
   }
+
+  getTimeRemaining = () => {
+    if (!this.state.brewSession.minutesRemaining) {
+      return "N/A";
+    }
+    
+    var secondsRemaining = this.state.brewSession.minutesRemaining * 60;
+
+    var result = toHHMMSS(secondsRemaining.toString());
+    return result;
+  }   
 
   render() {
     return (
@@ -91,9 +95,9 @@ class BrewSessionStatusSummary extends Component {
                     <BrewSessionStatus status={this.state.brewSession.status} />
                     <p>Time Started: {new Date(this.state.brewSession.lastStarted).toLocaleTimeString()}</p>
                     <p>Time Elapsed: {this.getTotalTimeElapsed()}</p>
+                    <p>Time remaining: {this.getTimeRemaining()}</p>
                     <BrewSessionStep brewSession={this.state.brewSession} />
                     <MashStepStatus brewSession={this.state.brewSession} />
-                    <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
                     <Button onClick={this.stop} bsStyle="danger">Stop</Button>
                 </div>
             }
