@@ -3,6 +3,7 @@ import { Panel, Button, Glyphicon } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import BrewSessionStatus from './BrewSessionStatus';
 import BrewSessionStep from './BrewSessionStep';
+import MashStepStatus from './MashStepStatus';
 import 'whatwg-fetch'
 var timediff = require('timediff');
 
@@ -72,7 +73,6 @@ class BrewSessionStatusSummary extends Component {
     var theDiff = timediff(dateStarted, dateNow, 'YDHmS');
     if (theDiff.hours > 0) {
       return theDiff.hours + ' hours, ' + theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
-      //return theDiff.hours.padStart(2, '0');
     }
     else if (theDiff.minutes > 0) {
       return theDiff.minutes + ' minutes, ' + theDiff.seconds + ' seconds';
@@ -92,6 +92,7 @@ class BrewSessionStatusSummary extends Component {
                     <p>Time Started: {new Date(this.state.brewSession.lastStarted).toLocaleTimeString()}</p>
                     <p>Time Elapsed: {this.getTotalTimeElapsed()}</p>
                     <BrewSessionStep brewSession={this.state.brewSession} />
+                    <MashStepStatus brewSession={this.state.brewSession} />
                     <p>Minutes remaining: {this.state.brewSession.minutesRemaining}</p>
                     <Button onClick={this.stop} bsStyle="danger">Stop</Button>
                 </div>
