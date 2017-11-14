@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Glyphicon, Button, ButtonToolbar, Panel } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
-var dateFormat = require('dateformat');
 
 class BrewHistoryDetail extends Component {
     constructor(props) {
