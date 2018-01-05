@@ -42,12 +42,6 @@ class BrewSessionStep extends Component {
     return (
         <div>
             <p>Step: {this.state.description}</p>
-            { (this.state.step === 3) && 
-                <p>Hit Mash Temp: {this.state.hasHitMashStepTemp.toString()}</p>
-            }
-            { (this.state.step === 5) && 
-                <p>Hit Boil Temp: {this.state.hasHitBoilStepTemp.toString()}</p>
-            }
         </div>
     );
   }
