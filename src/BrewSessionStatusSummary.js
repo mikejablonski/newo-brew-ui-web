@@ -95,7 +95,7 @@ class BrewSessionStatusSummary extends Component {
                     <BrewSessionStatus status={this.state.brewSession.status} />
                     <p>Time Started: {new Date(this.state.brewSession.lastStarted).toLocaleTimeString()}</p>
                     <p>Time Elapsed: {this.getTotalTimeElapsed()}</p>
-                    <p>Time remaining: {this.getTimeRemaining()}</p>
+                    <p>Time Remaining: {this.getTimeRemaining()}</p>
                     <BrewSessionStep brewSession={this.state.brewSession} />
                     <MashStepStatus brewSession={this.state.brewSession} />
                     <Button onClick={this.stop} bsStyle="danger">Stop</Button>
